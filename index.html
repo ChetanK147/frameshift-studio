@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="FRAME//SHIFT — cinematic motion, brand films and AI-assisted visual production." />
+  <title>FRAME//SHIFT — Motion & AI Studio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <div class="loader" id="loader" aria-label="Loading website">
+    <button class="loader-skip" id="skipLoader" type="button">Skip sequence</button>
+    <div class="loader-topline">
+      <span>FRAME//SHIFT</span>
+      <span class="loader-rec"><i></i> INITIALIZING</span>
+    </div>
+    <div class="loader-center">
+      <div class="loader-mark" aria-hidden="true">F<span>/</span>S</div>
+      <p>Stories engineered for motion.</p>
+    </div>
+    <div class="loader-bottom">
+      <span id="loaderStatus">Rendering signal</span>
+      <strong><span id="loaderPercent">0</span>%</strong>
+    </div>
+    <div class="loader-bar"><span id="loaderBar"></span></div>
+  </div>
+
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-label" id="cursorLabel" aria-hidden="true">VIEW</div>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="FRAME SHIFT home">
+      <span class="brand-mark">F/S</span>
+      <span class="brand-name">FRAME//SHIFT</span>
+    </a>
+    <div class="header-meta">
+      <span class="status"><i></i> Available for select projects</span>
+      <span class="timecode" id="timecode">TC 00:00:00:00</span>
+    </div>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#work">Work</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <canvas id="signalCanvas" aria-hidden="true"></canvas>
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-orb orb-one" aria-hidden="true"></div>
+      <div class="hero-orb orb-two" aria-hidden="true"></div>
+
+      <div class="hero-kicker reveal">
+        <span>Independent visual studio</span>
+        <span>Mumbai · Dubai · Everywhere</span>
+      </div>
+
+      <div class="hero-title-wrap">
+        <h1 id="hero-title" class="hero-title" aria-label="Frame Shift">
+          <span class="line line-one"><span>FRAME</span><em>01</em></span>
+          <span class="line line-two"><span>SHIFT</span><em>→</em></span>
+        </h1>
+        <p class="hero-sub reveal">We build cinematic campaigns, motion identities and AI-assisted films that make brands feel impossible to ignore.</p>
+      </div>
+
+      <div class="hero-bottom reveal">
+        <a class="round-link magnetic" href="#work"><span>Explore work</span><b>↘</b></a>
+        <div class="hero-note">
+          <span class="eyebrow">Signal / 2026</span>
+          <p>Direction, production and post — one tightly connected creative system.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>FILM DIRECTION</span><i>✦</i><span>AI VISUALS</span><i>✦</i><span>BRAND SYSTEMS</span><i>✦</i><span>CAMPAIGNS</span><i>✦</i><span>POST PRODUCTION</span><i>✦</i>
+        <span>FILM DIRECTION</span><i>✦</i><span>AI VISUALS</span><i>✦</i><span>BRAND SYSTEMS</span><i>✦</i><span>CAMPAIGNS</span><i>✦</i><span>POST PRODUCTION</span><i>✦</i>
+      </div>
+    </div>
+
+    <section class="manifesto section-pad" id="studio">
+      <div class="section-index reveal">
+        <span>01</span>
+        <span>Studio thesis</span>
+      </div>
+      <div class="manifesto-copy">
+        <p class="big-copy split-reveal">Not content for the feed. <span>Images with gravity.</span> We combine human taste, live-action craft and emerging tools to turn a brief into a world.</p>
+        <div class="manifesto-details reveal">
+          <p>Our process is cinematic but agile: strategy becomes a visual language, that language becomes frames, and those frames become a campaign people remember.</p>
+          <dl>
+            <div><dt>12+</dt><dd>Creative disciplines</dd></div>
+            <div><dt>4K</dt><dd>Master delivery</dd></div>
+            <div><dt>∞</dt><dd>Possible worlds</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="work section-pad" id="work">
+      <div class="section-heading reveal">
+        <div class="section-index"><span>02</span><span>Selected work</span></div>
+        <h2>Films that start<br><i>before</i> the first frame.</h2>
+        <p>Original concept projects demonstrating the site's visual system. Replace them with your own reels, campaigns and case studies.</p>
+      </div>
+
+      <div class="projects">
+        <article class="project-card project-a interactive-card" data-cursor="PLAY">
+          <a href="#contact" aria-label="View The Last Signal project">
+            <div class="project-visual">
+              <div class="scanline"></div>
+              <div class="visual-copy"><span>ORIGINAL FILM</span><strong>THE LAST<br>SIGNAL</strong><small>02:14 / SCI-FI</small></div>
+              <div class="planet"></div>
+              <div class="horizon"></div>
+            </div>
+            <div class="project-info">
+              <div><span>01 / Brand film</span><h3>The Last Signal</h3></div>
+              <p>A quiet transmission from the edge of tomorrow.</p>
+              <b>↗</b>
+            </div>
+          </a>
+        </article>
+
+        <article class="project-card project-b interactive-card" data-cursor="VIEW">
+          <a href="#contact" aria-label="View Neon Monsoon project">
+            <div class="project-visual">
+              <div class="visual-copy"><span>FASHION CAMPAIGN</span><strong>NEON<br>MONSOON</strong><small>MUMBAI / NIGHT</small></div>
+              <div class="rain rain-one"></div><div class="rain rain-two"></div>
+              <div class="silhouette"></div>
+            </div>
+            <div class="project-info">
+              <div><span>02 / Fashion film</span><h3>Neon Monsoon</h3></div>
+              <p>Heat, rain and chrome collide after midnight.</p>
+              <b>↗</b>
+            </div>
+          </a>
+        </article>
+
+        <article class="project-card project-c interactive-card" data-cursor="OPEN">
+          <a href="#contact" aria-label="View Ritual Motion project">
+            <div class="project-visual">
+              <div class="visual-copy"><span>IDENTITY IN MOTION</span><strong>RITUAL<br>MOTION</strong><small>FORM / ENERGY</small></div>
+              <div class="ring ring-one"></div><div class="ring ring-two"></div><div class="ring ring-three"></div>
+            </div>
+            <div class="project-info">
+              <div><span>03 / Motion identity</span><h3>Ritual Motion</h3></div>
+              <p>A living visual identity built from rhythm and light.</p>
+              <b>↗</b>
+            </div>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section class="capabilities section-pad" id="capabilities">
+      <div class="section-heading compact reveal">
+        <div class="section-index"><span>03</span><span>Capabilities</span></div>
+        <h2>One studio.<br>Many ways in.</h2>
+      </div>
+
+      <div class="service-list">
+        <article class="service-row reveal">
+          <span class="service-no">01</span>
+          <h3>Creative Direction</h3>
+          <p>Campaign concepts, scripts, visual treatments and complete creative worlds.</p>
+          <span class="service-tag">Think</span>
+        </article>
+        <article class="service-row reveal">
+          <span class="service-no">02</span>
+          <h3>Film Production</h3>
+          <p>Brand films, commercials, social-first stories and premium short-form production.</p>
+          <span class="service-tag">Shoot</span>
+        </article>
+        <article class="service-row reveal">
+          <span class="service-no">03</span>
+          <h3>AI Visual Production</h3>
+          <p>Controlled image and motion workflows for concepts that traditional production cannot reach.</p>
+          <span class="service-tag">Generate</span>
+        </article>
+        <article class="service-row reveal">
+          <span class="service-no">04</span>
+          <h3>Post & Motion</h3>
+          <p>Editing, colour, sound design, compositing and motion systems with a cinematic finish.</p>
+          <span class="service-tag">Finish</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="process section-pad">
+      <div class="process-sticky reveal">
+        <div class="section-index"><span>04</span><span>Method</span></div>
+        <h2>A clear path<br>to the unseen.</h2>
+        <p>Built to keep ambition high and production friction low.</p>
+      </div>
+      <div class="process-steps">
+        <article class="reveal"><span>01 / Discover</span><h3>Find the tension.</h3><p>We uncover the one emotional or strategic idea that the audience needs to feel.</p></article>
+        <article class="reveal"><span>02 / Design</span><h3>Build the world.</h3><p>References, frames, movement, sound and language become one coherent visual system.</p></article>
+        <article class="reveal"><span>03 / Make</span><h3>Capture the signal.</h3><p>Live action, CGI and AI-assisted production are combined only where each adds real value.</p></article>
+        <article class="reveal"><span>04 / Release</span><h3>Shape every format.</h3><p>The master idea expands into platform-native edits without losing its cinematic identity.</p></article>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="contact-glow" aria-hidden="true"></div>
+      <div class="section-index reveal"><span>05</span><span>Start a project</span></div>
+      <p class="contact-kicker reveal">The next frame is empty.</p>
+      <a class="contact-link magnetic reveal" href="mailto:hello@frameshift.studio">
+        <span>LET'S FILL IT.</span><b>↗</b>
+      </a>
+      <div class="contact-meta reveal">
+        <div><span>Inquiries</span><a href="mailto:hello@frameshift.studio">hello@frameshift.studio</a></div>
+        <div><span>Based in</span><p>Mumbai / Dubai</p></div>
+        <div><span>Social</span><a href="#top">Instagram ↗</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-logo">FRAME<span>//</span>SHIFT</div>
+    <div class="footer-bottom"><span>© 2026 FRAME//SHIFT</span><span>Motion changes meaning.</span><a href="#top">Back to top ↑</a></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
