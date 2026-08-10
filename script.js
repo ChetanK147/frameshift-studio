@@ -1,8 +1,13 @@
 (() => {
-  const teamPhotoStyles = document.createElement('link');
-  teamPhotoStyles.rel = 'stylesheet';
-  teamPhotoStyles.href = 'team-photos.css';
-  document.head.appendChild(teamPhotoStyles);
+  // Use the original high-resolution team photos committed to the repository.
+  // Card order: Ammer Afaq, Varun Sharma, Chetan Kapadnis.
+  const teamPortraits = ['ammer-afaq.jpg', 'varun-sharma.jpg', 'chetan-kapadnis.jpg'];
+  document.querySelectorAll('.team-card .team-photo img').forEach((img, index) => {
+    if (!teamPortraits[index]) return;
+    img.src = teamPortraits[index];
+    img.removeAttribute('srcset');
+    img.decoding = 'async';
+  });
 
   const body = document.body;
   const loader = document.getElementById('loader');
@@ -117,6 +122,7 @@
   // Subtle project-card perspective.
   document.querySelectorAll('.interactive-card').forEach((card) => {
     const visual = card.querySelector('.project-visual');
+    if (!visual) return;
     card.addEventListener('pointermove', (e) => {
       const r = visual.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width - .5;
