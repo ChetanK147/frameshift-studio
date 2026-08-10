@@ -1,4 +1,9 @@
 (() => {
+  const teamPhotoStyles = document.createElement('link');
+  teamPhotoStyles.rel = 'stylesheet';
+  teamPhotoStyles.href = 'team-photos.css';
+  document.head.appendChild(teamPhotoStyles);
+
   const body = document.body;
   const loader = document.getElementById('loader');
   const skipLoader = document.getElementById('skipLoader');
