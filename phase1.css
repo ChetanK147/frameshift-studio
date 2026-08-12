@@ -252,6 +252,61 @@
   line-height: 1.5;
 }
 
+/* Production performance layer: visual appearance stays the same while off-screen work is reduced. */
+.scroll-progress span {
+  width: 100% !important;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+.native-cursor { cursor: auto; }
+.native-cursor a,
+.native-cursor button,
+.native-cursor input,
+.native-cursor textarea { cursor: auto; }
+
+/* Allow the browser to skip layout/paint for sections far below the viewport. */
+@supports (content-visibility: auto) {
+  .manifesto,
+  .work,
+  .capabilities,
+  .process,
+  .team,
+  .about,
+  .contact {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+  }
+}
+
+/* Keep expensive compositing local to the hero instead of promoting the entire document. */
+.hero { contain: layout paint style; }
+#signalCanvas { contain: strict; }
+.portfolio-thumb,
+.team-photo { contain: paint; }
+
+@media (hover: none), (pointer: coarse) {
+  body { cursor: auto; }
+  .cursor,
+  .cursor-label { display: none !important; }
+  .portfolio-card:hover .portfolio-thumb img {
+    transform: scale(1.02);
+    opacity: .74;
+    filter: saturate(.85) contrast(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .ticker-track { transform: none !important; }
+  .hero-orb { transform: none !important; }
+}
+
 @media (max-width: 1100px) {
   .team-grid { grid-template-columns: 1fr; }
   .team-card { min-height: 520px; }
