@@ -15,6 +15,17 @@
     img.fetchPriority = 'low';
   });
 
+  // Convert static service price labels into real inquiry links.
+  document.querySelectorAll('.service-row .service-tag').forEach(tag => {
+    if (tag.tagName === 'A') return;
+    const link = document.createElement('a');
+    link.className = tag.className + ' service-cta';
+    link.href = '#contact';
+    link.setAttribute('aria-label', `Request a quote for ${tag.closest('.service-row')?.querySelector('h3')?.textContent || 'this service'}`);
+    link.innerHTML = '<span>Request quote</span><b aria-hidden="true">↘</b>';
+    tag.replaceWith(link);
+  });
+
   // Loader.
   const loader = document.getElementById('loader');
   const skipLoader = document.getElementById('skipLoader');
