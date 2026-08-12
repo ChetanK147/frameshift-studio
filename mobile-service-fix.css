@@ -1,0 +1,82 @@
+/* CK FILMS mobile service CTA fix */
+.service-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+}
+.service-cta b {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+@media (max-width: 700px) {
+  .service-row {
+    grid-template-columns: 54px minmax(0, 1fr) !important;
+    column-gap: 22px !important;
+    row-gap: 14px !important;
+    align-items: start !important;
+    overflow: visible !important;
+  }
+
+  .service-row .service-no {
+    grid-column: 1 !important;
+    grid-row: 1 / span 3 !important;
+    align-self: start !important;
+  }
+
+  .service-row h3,
+  .service-row p,
+  .service-row .service-cta {
+    grid-column: 2 !important;
+  }
+
+  .service-row h3 {
+    grid-row: 1 !important;
+    margin-top: 0 !important;
+  }
+
+  .service-row p {
+    grid-row: 2 !important;
+    max-width: none !important;
+    margin-bottom: 6px !important;
+  }
+
+  .service-row .service-cta {
+    grid-row: 3 !important;
+    position: static !important;
+    transform: none !important;
+    width: min(100%, 300px) !important;
+    min-height: 48px;
+    margin: 4px 0 0 !important;
+    padding: 13px 16px !important;
+    border: 1px solid rgba(202,246,255,.42) !important;
+    border-radius: 999px !important;
+    color: var(--paper) !important;
+    background: rgba(202,246,255,.035) !important;
+    font-size: 9px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    letter-spacing: .13em !important;
+    text-transform: uppercase !important;
+  }
+
+  .service-row .service-cta:active {
+    background: var(--cyan) !important;
+    color: var(--ink) !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .service-row {
+    grid-template-columns: 38px minmax(0, 1fr) !important;
+    column-gap: 14px !important;
+  }
+  .service-row .service-cta {
+    width: 100% !important;
+  }
+}
