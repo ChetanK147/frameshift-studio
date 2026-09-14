@@ -650,3 +650,12 @@ footer { padding-bottom: 90px; }
   body.custom-cursor-active, .custom-cursor-active a, .custom-cursor-active button { cursor: auto; }
 }
 
+
+@media (max-width: 360px) { .footer-logo { font-size: 19vw; } }
+@media (max-width: 679px) {
+  .whatsapp-float { width: 52px; height: 52px; padding: 14px; gap: 0; }
+  .whatsapp-float svg { width: 24px; height: 24px; }
+  .whatsapp-float span { display: none; }
+}
+.status i { animation-play-state: paused; }
+.site-header.motion-visible .status i { animation-play-state: running; }

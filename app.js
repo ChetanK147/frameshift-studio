@@ -84,9 +84,9 @@
       entry.target.classList.toggle('motion-visible', entry.isIntersecting);
       if (entry.target.id === 'contact') body.classList.toggle('contact-visible', entry.isIntersecting);
     }));
-    document.querySelectorAll('.hero, .ticker, .contact').forEach(el => regions.observe(el));
+    document.querySelectorAll('.hero, .ticker, .contact, .site-header').forEach(el => regions.observe(el));
   } else {
-    document.querySelectorAll('.hero, .ticker, .contact').forEach(el => el.classList.add('motion-visible'));
+    document.querySelectorAll('.hero, .ticker, .contact, .site-header').forEach(el => el.classList.add('motion-visible'));
   }
   const bar = document.querySelector('.scroll-progress span');
   let scrollFrame = 0;
