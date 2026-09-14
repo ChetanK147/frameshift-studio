@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CK FILMS — responsive review</title>
+<style>body{margin:0;background:#202727;color:#ecf5f0;font:14px system-ui}header{padding:12px 18px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}button,select{font:inherit;padding:9px;background:#f0f5f2;color:#142020;border:0;border-radius:4px}#stage{position:relative;margin:0 auto;background:#101414}iframe{position:absolute;left:0;top:0;border:0;transform-origin:top left;background:#0b0d0d}details{padding:16px}pre{white-space:pre-wrap;font-size:12px}#status{padding:0 18px 12px}a{color:#caf6ff}</style></head><body>
+<header><strong>CK FILMS review</strong><label>Version <select id="version"><option value="../">Improved</option><option value="baseline/">Baseline</option></select></label><label>Viewport <select id="size"><option>320x568</option><option>375x667</option><option selected>390x844</option><option>430x932</option><option>768x1024</option><option>820x1180</option><option>1024x768</option><option>1280x800</option><option>1440x900</option><option>1920x1080</option></select></label><label>Mode <select id="mode"><option value="normal">Normal</option><option value="reduced">Reduced motion (simulation)</option><option value="nojs">JavaScript blocked</option><option value="touch">Touch input (simulation)</option></select></label><button id="reload">Load</button><button id="sweep">Check all widths</button><button id="idle">Check idle work</button><button id="inspect">Inspect layout</button><label>Section <select id="section"><option value="top">Hero</option><option value="work">Work</option><option value="services">Services</option><option value="team">Team</option><option value="contact">Contact</option></select></label><button id="jump">Go</button></header>
+<div id="status" role="status">Ready. Browser viewport fixtures; not physical device tests.</div><div id="stage"><iframe title="CK FILMS preview" id="preview"></iframe></div><details open><summary>Review results</summary><pre id="report"></pre></details>
+<script>
+const frame=document.getElementById('preview'),stage=document.getElementById('stage'),status=document.getElementById('status'),report=document.getElementById('report');
+const size=document.getElementById('size'),version=document.getElementById('version'),mode=document.getElementById('mode');
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function recordBoot(mode){
+ window.__qa={frames:0,draws:0,errors:[],shifts:0,longTasks:0};
+ const request=window.requestAnimationFrame.bind(window);window.requestAnimationFrame=cb=>request(t=>{window.__qa.frames++;cb(t)});
+ const clear=CanvasRenderingContext2D.prototype.clearRect;CanvasRenderingContext2D.prototype.clearRect=function(...a){window.__qa.draws++;return clear.apply(this,a)};
+ window.addEventListener('error',e=>window.__qa.errors.push(e.message));
+ window.addEventListener('unhandledrejection',e=>window.__qa.errors.push(String(e.reason)));
+ try{new PerformanceObserver(list=>list.getEntries().forEach(e=>{if(!e.hadRecentInput)window.__qa.shifts+=e.value})).observe({type:'layout-shift',buffered:true})}catch{}
+ try{new PerformanceObserver(list=>window.__qa.longTasks+=list.getEntries().length).observe({type:'longtask',buffered:true})}catch{}
+ if(mode==='reduced'||mode==='touch'){
+  const original=window.matchMedia.bind(window);
+  window.matchMedia=query=>{const m=original(query);let matches=m.matches;if(mode==='reduced'&&query.includes('prefers-reduced-motion'))matches=true;if(mode==='touch'&&/pointer|hover/.test(query))matches=query.includes('coarse')||query.includes('hover: none');return{matches,media:m.media,addEventListener:m.addEventListener.bind(m),removeEventListener:m.removeEventListener.bind(m)}};
+ }
+}
+async function load(){
+ const [w,h]=size.value.split('x').map(Number),scale=Math.min(1,(innerWidth-36)/w);
+ frame.style.width=w+'px';frame.style.height=h+'px';frame.style.transform=`scale(${scale})`;stage.style.width=w*scale+'px';stage.style.height=h*scale+'px';
+ const base=new URL(version.value,location.href);let markup=await(await fetch(new URL('index.html',base))).text();
+ if(mode.value==='nojs')markup=markup.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');
+ const boot='<script>('+recordBoot.toString()+')('+JSON.stringify(mode.value)+');<\/script>';
+ const reduceCSS=mode.value==='reduced'?'<style>*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1!important;transform:none!important}</style>':'';
+ markup=markup.replace('<head>','<head><base href="'+base.href+'">'+boot+reduceCSS);
+ const loaded=new Promise(resolve=>frame.onload=resolve);frame.srcdoc=markup;await loaded;await wait(1100);
+ status.textContent=`${version.selectedOptions[0].text} · ${w} × ${h} · ${mode.selectedOptions[0].text}`;
+}
+function inspect(){
+ const doc=frame.contentDocument,win=frame.contentWindow,w=win.innerWidth;
+ const overflow=[...doc.querySelectorAll('h1,h2,h3,p,a,button,input,textarea,select,nav,.footer-logo')].filter(el=>{const r=el.getBoundingClientRect(),s=win.getComputedStyle(el);return r.width&&s.visibility!=='hidden'&&s.display!=='none'&&!el.closest('#loader,.ticker')&&!el.classList.contains('skip-link')&&(r.left<-.5||r.right>w+.5||el.scrollWidth>el.clientWidth+2)}).map(el=>({tag:el.tagName,text:el.textContent.trim().slice(0,65),left:Math.round(el.getBoundingClientRect().left),right:Math.round(el.getBoundingClientRect().right),scroll:el.scrollWidth,client:el.clientWidth}));
+ return{version:version.selectedOptions[0].text,viewport:size.value,mode:mode.value,documentOverflow:doc.documentElement.scrollWidth>w,overflow,nav:[...doc.querySelectorAll('.nav a')].map(a=>({text:a.textContent,visible:win.getComputedStyle(a).display!=='none',height:a.getBoundingClientRect().height})),inputSize:[...doc.querySelectorAll('input:not([type=hidden]),select,textarea')].filter(e=>e.getBoundingClientRect().width).map(e=>win.getComputedStyle(e).fontSize),photos:[...doc.querySelectorAll('.team-photo img')].map(i=>({alt:i.alt,width:i.naturalWidth,src:i.currentSrc.replace(location.origin,''),rendered:Math.round(i.getBoundingClientRect().width)})),...win.__qa};
+}
+document.getElementById('reload').onclick=()=>load().then(()=>report.textContent=JSON.stringify(inspect(),null,2));
+document.getElementById('inspect').onclick=()=>report.textContent=JSON.stringify(inspect(),null,2);
+document.getElementById('jump').onclick=async()=>{frame.contentDocument.getElementById(document.getElementById('section').value)?.scrollIntoView({behavior:'instant'});await wait(1100);report.textContent=JSON.stringify(inspect(),null,2)};
+document.getElementById('sweep').onclick=async()=>{
+ const results=[];
+ for(const option of size.options){size.value=option.value;await load();const seen=new Map();for(const id of ['top','work','services','team','contact']){frame.contentDocument.getElementById(id)?.scrollIntoView({behavior:'instant'});await wait(350);inspect().overflow.forEach(x=>seen.set(JSON.stringify(x),x))}const r=inspect();r.overflow=[...seen.values()];results.push(r);status.textContent='Checking '+size.value;report.textContent=JSON.stringify(results,null,2)}
+ status.textContent='Width checks complete';
+};
+document.getElementById('idle').onclick=async()=>{
+ const results=[];for(const pos of ['top','contact']){frame.contentDocument.getElementById(pos).scrollIntoView({behavior:'instant'});await wait(1400);const a={...frame.contentWindow.__qa};await wait(2000);const b=frame.contentWindow.__qa;results.push({section:pos,seconds:2,frameCallbacks:b.frames-a.frames,canvasDraws:b.draws-a.draws})}report.textContent=JSON.stringify({version:version.value,viewport:size.value,idle:results,errors:frame.contentWindow.__qa.errors},null,2);status.textContent='Idle checks complete';
+};
+load();
+</script></body></html>
