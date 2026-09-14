@@ -5,7 +5,7 @@
   const body = document.body;
 
   // Use original repository portraits and let the browser decode them asynchronously.
-  const teamPortraits = ['ammer-afaq.jpg', 'varun-sharma.jpg', 'chetan-kapadnis.jpg'];
+  const teamPortraits = ['/ammer-afaq.jpg', '/varun-sharma.jpg', '/chetan-kapadnis.jpg'];
   document.querySelectorAll('.team-card .team-photo img').forEach((img, index) => {
     if (!teamPortraits[index]) return;
     img.src = teamPortraits[index];
